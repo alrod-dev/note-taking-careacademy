@@ -1,5 +1,11 @@
-$breakpoints: (
-  phone: 500px,
+$breakpoints: (phone: 500px,
   tablet: 768px,
   desktop: 1024px,
 );
+
+$colors: (yellow: #e4cb58,
+  red: #ff7f82,
+  green: #8fc866,
+  dark-green: #192b15,
+  white: #FFFFFF,
+)

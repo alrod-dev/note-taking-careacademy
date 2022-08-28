@@ -1,0 +1,15 @@
+@use '@/assets/scss/utils/fonts';
+@use '@/assets/scss/utils/variables';
+
+$background-color: map-get(variables.$colors, dark-green);
+$text-color: map-get(variables.$colors, white);
+
+body {
+    font-family: BreathOfTheWild;
+    background: url('@/assets/images/The_Legend_of_Zelda_Zelda_Link_Triforce_video_games_minimalism_simple_background_green_background-230014.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: $background-color;
+    color: $text-color;
+}
