@@ -1,11 +1,7 @@
-
+@use 'variables';
 
 @mixin breakpoint($bp) {
-    @media (min-width: map-get($breakpoints, $bp)) {
+    @media (min-width: map-get(variables.$breakpoints, $bp)) {
         @content;
     }
-}
-
-@mixin test($size) {
-    font-size: $size;
 }

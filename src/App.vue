@@ -1,16 +1,17 @@
 <template>
   <div id="app">
-    <NotesItem />
+    <h1>Note Taking App - CareAcademy</h1>
+    <NotesApp></NotesApp>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import NotesItem from "@/components/NotesItem";
+import { defineComponent } from "vue";
+import NotesApp from "@/components/views/NotesApp.vue";
 
-export default Vue.extend({
+export default defineComponent({
   name: "App",
-  components: { NotesItem },
+  components: { NotesApp },
 });
 </script>
 
