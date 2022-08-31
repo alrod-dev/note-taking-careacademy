@@ -4,17 +4,13 @@ import Note from "@/types/Note";
 import NoteState from "@/types/NoteState";
 
 export enum ActionTypes {
-  GetNotes = "GET_ITEMS",
+  GetNotes = "GET_LOCAL_STORAGE_NOTES",
 }
 
 export const actions: ActionTree<NoteState, Note> = {
-  async [ActionTypes.GetNotes]({ commit }) {
-    commit(MutationType.SetNotes, [
-      {
-        id: 1,
-        title: "Title 1",
-        message: "Create awesome Vue 3 with Vuex 4 video!",
-      },
-    ]);
+  [ActionTypes.GetNotes]({ commit }) {
+    const notes: Array<Note> = JSON.parse(localStorage.getItem("notes") || "");
+
+    commit(MutationType.SetNotes, notes);
   },
 };
