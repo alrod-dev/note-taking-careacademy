@@ -24,18 +24,36 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$h1-mobile: map-get($h1-size, mobile);
+$h1-tablet: map-get($h1-size, tablet);
+$h1-desktop: map-get($h1-size, desktop);
+
 .header {
-  padding: 40px 0;
+  padding: 20px 15px;
   text-align: center;
 
   h1 {
-    font-size: 40px;
+    font-size: $h1-mobile;
     margin: 15px auto;
   }
 
   img {
     display: inline-block;
     width: 40px;
+  }
+
+  @include breakpoint(tablet) {
+    padding: 40px 15px;
+
+    h1 {
+      font-size: $h1-tablet;
+    }
+  }
+
+  @include breakpoint(desktop) {
+    h1 {
+      font-size: $h1-desktop;
+    }
   }
 }
 </style>

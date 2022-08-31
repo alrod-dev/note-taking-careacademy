@@ -9,4 +9,10 @@ module.exports = {
       },
     },
   },
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
+      args[0].title = "The Legend Of The Note Taking App";
+      return args;
+    });
+  },
 };
