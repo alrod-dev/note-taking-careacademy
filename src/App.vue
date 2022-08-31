@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <h1>Note Taking App - CareAcademy</h1>
     <NotesApp></NotesApp>
   </div>
 </template>

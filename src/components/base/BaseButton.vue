@@ -13,6 +13,7 @@ button {
   margin: 0.5em;
   padding: 1em 2em;
   transition: 0.25s;
+  text-transform: uppercase;
   cursor: pointer;
 
   //Colors
@@ -31,19 +32,28 @@ button {
 
   //Animations
   &.pulse {
-    // Animate the size, outside
-    &:hover,
-    &:focus {
+    &:hover {
       animation: pulse 1s;
       box-shadow: 0 0 0 2em transparent;
     }
   }
 
   &.close {
-    &:hover,
-    &:focus {
-      box-shadow: inset -3.5em 0 0 0 var(--hover),
-        inset 3.5em 0 0 0 var(--hover);
+    &:hover {
+      box-shadow: inset -4em 0 0 0 var(--hover), inset 4em 0 0 0 var(--hover);
+    }
+  }
+
+  &.raise {
+    &:hover {
+      box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+      transform: translateY(-0.25em);
+    }
+  }
+
+  &.fill {
+    &:hover {
+      box-shadow: inset 0 0 0 2em var(--hover);
     }
   }
 }
