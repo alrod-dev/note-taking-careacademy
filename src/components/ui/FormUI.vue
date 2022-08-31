@@ -57,8 +57,18 @@ export default defineComponent({
     this.$root.$on("editModal", (data: unknown) => {
       this.editNote(data);
     });
+
+    this.$root.$on("createNewNote", () => {
+      this.resetModal();
+      this.openModal();
+    });
+
+    this.$root.$on("closeModal", () => {
+      this.closeModal();
+    });
   },
   methods: {
+    // Checks form and Submits it
     submitForm() {
       if (this.checkForm()) {
         const note: Note = {
@@ -77,6 +87,7 @@ export default defineComponent({
       this.form.title = noteValues.title;
       this.form.message = noteValues.message;
 
+      this.editModeModal();
       this.openModal();
     },
     updateNote() {
@@ -110,26 +121,45 @@ export default defineComponent({
     },
     openModal() {
       const modal = document.querySelector(".modal");
-      const editBtn = document.querySelector("#edit-button");
-      const addBtn = document.querySelector("#add-button");
-
-      editBtn.style.display = "inline-block";
-      addBtn.style.display = "none";
 
       modal?.classList.add("active");
     },
+    editModeModal() {
+      const editBtn = document.querySelector(
+        "#edit-button"
+      ) as HTMLElement | null;
+      const addBtn = document.querySelector(
+        "#add-button"
+      ) as HTMLElement | null;
+
+      if (editBtn != null && addBtn != null) {
+        editBtn.style.display = "inline-block";
+        addBtn.style.display = "none";
+      }
+    },
+    resetModal() {
+      const editBtn = document.querySelector(
+        "#edit-button"
+      ) as HTMLElement | null;
+      const addBtn = document.querySelector(
+        "#add-button"
+      ) as HTMLElement | null;
+
+      if (editBtn != null && addBtn != null) {
+        editBtn.style.display = "none";
+        addBtn.style.display = "inline-block";
+      }
+    },
     closeModal() {
       const modal = document.querySelector(".modal");
-      const editBtn = document.querySelector("#edit-button");
-      const addBtn = document.querySelector("#add-button");
 
       if (modal?.classList.contains("active")) {
         modal.classList.remove("active");
-        editBtn.style.display = "none";
-        addBtn.style.display = "inline-block";
         this.form.id = "";
         this.form.title = "";
         this.form.message = "";
+
+        this.resetModal();
       }
     },
   },

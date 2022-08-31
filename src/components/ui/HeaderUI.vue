@@ -17,9 +17,7 @@ export default defineComponent({
   components: { Container, Button },
   methods: {
     openModal() {
-      const modal = document.querySelector(".modal");
-
-      modal?.classList.add("active");
+      this.$root.$emit("createNewNote");
     },
   },
 });

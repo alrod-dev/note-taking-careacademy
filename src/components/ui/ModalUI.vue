@@ -13,11 +13,7 @@ import { defineComponent } from "vue";
 export default defineComponent({
   methods: {
     closeModal() {
-      const modal = document.querySelector(".modal");
-
-      if (modal?.classList.contains("active")) {
-        modal.classList.remove("active");
-      }
+      this.$root.$emit("closeModal");
     },
   },
 });
