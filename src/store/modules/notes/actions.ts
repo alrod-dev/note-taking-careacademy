@@ -8,6 +8,7 @@ export enum ActionTypes {
 }
 
 export const actions: ActionTree<NoteState, Note> = {
+  //Gets all notes from LocalStorage if they exist and sets it as default notes state
   [ActionTypes.GetNotes]({ commit }) {
     const notes: Array<Note> = JSON.parse(localStorage.getItem("notes") || "");
 

@@ -35,11 +35,13 @@ export default defineComponent({
     },
   },
   methods: {
+    // Send Note ID to the store for the specifc Note to be deleted
     deleteNote(event: { target: { name: unknown } }) {
       const id = event.target.name;
 
       store.commit(MutationType.DeleteNote, id);
     },
+    // Emits signal to the Modal to open and pass these specific values to be edited
     editNote(event: { target: { name: unknown } }) {
       const id = event.target.name;
 
@@ -52,22 +54,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+$li-bg-color: map-get($colors, medium-grey);
+$p-mobile: map-get($paragraph-size, mobile);
+$p-tablet: map-get($paragraph-size, tablet);
+$p-desktop: map-get($paragraph-size, desktop);
+$h3-mobile: map-get($h3-size, mobile);
+$h3-tablet: map-get($h3-size, tablet);
+$h3-desktop: map-get($h3-size, desktop);
+
 .notes-list {
   max-width: 800px;
+  max-height: 750px;
+  overflow: scroll;
   text-align: center;
   margin: 10px auto;
-  overflow: scroll;
-  max-height: 750px;
 
   ul {
     li {
       padding: 20px;
       margin: 15px auto;
       border-radius: 10px;
-      background-color: rgba(128, 128, 128, 0.95);
+      background-color: rgba($li-bg-color, 0.95);
 
       h3 {
-        font-size: 30px;
+        font-size: $h3-mobile;
       }
 
       img {
@@ -76,14 +86,39 @@ export default defineComponent({
       }
 
       p {
-        font-size: 18px;
+        font-size: $p-mobile;
         margin: 15px auto;
         max-width: 500px;
       }
     }
   }
+
+  @include breakpoint(tablet) {
+    ul {
+      li {
+        h3 {
+          font-size: $h3-tablet;
+        }
+
+        p {
+          font-size: $p-tablet;
+        }
+      }
+    }
+  }
+
+  @include breakpoint(desktop) {
+    ul {
+      li {
+        h3 {
+          font-size: $h3-desktop;
+        }
+
+        p {
+          font-size: $p-desktop;
+        }
+      }
+    }
+  }
 }
 </style>
-
-function emit(arg0: string, noteItem: Note|undefined) { throw new
-Error("Function not implemented."); }

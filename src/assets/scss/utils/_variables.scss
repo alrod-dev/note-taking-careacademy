@@ -1,16 +1,29 @@
-$breakpoints: (phone: 500px,
-  tablet: 768px,
+$breakpoints: (tablet: 768px,
   desktop: 1024px,
 );
 
 $colors: (yellow: #e4cb58,
   red: #ff7f82,
+  dark-red: #ff0004,
   purple: #a972cb,
   green: #8fc866,
   dark-green: #192b15,
   white: #FFFFFF,
+  black: #000000,
+  grey: #aaaaaa,
+  medium-grey: #808080,
+  dark-grey: #494b4b,
 );
 
-$paragraph-size: (mobile: 16px);
+$paragraph-size: (mobile: 16px,
+  tablet: 18px,
+  desktop: 20px,
+);
 
-$header-size: (mobile: 16px);
+$h1-size: (mobile: 36px,
+  tablet: 42px,
+  desktop: 50px);
+
+$h3-size: (mobile: 24px,
+  tablet: 30px,
+  desktop: 36px);

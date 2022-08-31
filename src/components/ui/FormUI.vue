@@ -54,6 +54,7 @@ export default defineComponent({
   },
   components: { Button },
   mounted() {
+    // Gets emit calls and call corresponding functions
     this.$root.$on("editModal", (data: unknown) => {
       this.editNote(data);
     });
@@ -82,6 +83,7 @@ export default defineComponent({
         this.closeModal();
       }
     },
+    // Replaces fields values with current note selected
     editNote(noteValues: unknown) {
       this.form.id = noteValues.id;
       this.form.title = noteValues.title;
@@ -90,6 +92,7 @@ export default defineComponent({
       this.editModeModal();
       this.openModal();
     },
+    // Sends to store to update specific note selected
     updateNote() {
       if (this.checkForm()) {
         const note: Note = {
@@ -103,6 +106,7 @@ export default defineComponent({
         this.closeModal();
       }
     },
+    // Validates form if there's any values in title and message
     checkForm() {
       this.errors = [];
 
@@ -119,11 +123,13 @@ export default defineComponent({
 
       return false;
     },
+    // Opens modal
     openModal() {
       const modal = document.querySelector(".modal");
 
       modal?.classList.add("active");
     },
+    // Sets modal in edit mode based on the the current note wanted to be updated
     editModeModal() {
       const editBtn = document.querySelector(
         "#edit-button"
@@ -137,6 +143,7 @@ export default defineComponent({
         addBtn.style.display = "none";
       }
     },
+    // Resets modal back to normal
     resetModal() {
       const editBtn = document.querySelector(
         "#edit-button"
@@ -150,6 +157,7 @@ export default defineComponent({
         addBtn.style.display = "inline-block";
       }
     },
+    // Closes modal and clears all fields
     closeModal() {
       const modal = document.querySelector(".modal");
 
@@ -158,6 +166,7 @@ export default defineComponent({
         this.form.id = "";
         this.form.title = "";
         this.form.message = "";
+        this.errors = [];
 
         this.resetModal();
       }
@@ -167,6 +176,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+$input-bg-color: map-get($colors, white);
+$input-text-color: map-get($colors, white);
+$errors-text-color: map-get($colors, dark-red);
+
 form {
   max-width: 500px;
   margin: 0 auto;
@@ -186,13 +199,13 @@ form {
     textarea {
       outline: none;
       display: block;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba($input-bg-color, 0.1);
       width: 100%;
       border: 0;
       border-radius: 4px;
       box-sizing: border-box;
       padding: 12px 20px;
-      color: white;
+      color: $input-text-color;
       font-family: inherit;
       font-size: inherit;
       font-weight: 500;
@@ -203,7 +216,7 @@ form {
 
     textarea {
       resize: none;
-      width: 300px;
+      max-width: 300px;
       height: 150px;
     }
 
@@ -213,7 +226,7 @@ form {
 
     &.errors {
       font-size: 20px;
-      color: red;
+      color: $errors-text-color;
       line-height: 1.2;
     }
   }
