@@ -1,5 +1,8 @@
 <template>
-  <form @submit.prevent="submitForm">
+  <form @submit.prevent="submitForm" @editModal="editNote">
+    <div class="form-input">
+      <input type="hidden" v-model="form.id" />
+    </div>
     <div class="form-input">
       <label>Title</label>
       <input type="text" placeholder="Title" v-model="form.title" />
@@ -18,7 +21,15 @@
       </ul>
     </div>
     <div class="form-input">
-      <Button type="submit" value="Submit" class="raise green">Add Note</Button>
+      <Button type="submit" id="add-button" value="Submit" class="raise green"
+        >Add Note</Button
+      >
+      <Button
+        id="edit-button"
+        @click.native.prevent="updateNote"
+        class="raise green"
+        >Update Note</Button
+      >
     </div>
   </form>
 </template>
@@ -35,12 +46,18 @@ export default defineComponent({
     return {
       errors: [],
       form: {
+        id: "",
         title: "",
         message: "",
       },
     };
   },
   components: { Button },
+  mounted() {
+    this.$root.$on("editModal", (data: unknown) => {
+      this.editNote(data);
+    });
+  },
   methods: {
     submitForm() {
       if (this.checkForm()) {
@@ -51,6 +68,26 @@ export default defineComponent({
         };
 
         store.commit(MutationType.CreateNote, note);
+
+        this.closeModal();
+      }
+    },
+    editNote(noteValues: unknown) {
+      this.form.id = noteValues.id;
+      this.form.title = noteValues.title;
+      this.form.message = noteValues.message;
+
+      this.openModal();
+    },
+    updateNote() {
+      if (this.checkForm()) {
+        const note: Note = {
+          id: this.form.id,
+          title: this.form.title,
+          message: this.form.message,
+        };
+
+        store.commit(MutationType.UpdateNote, note);
 
         this.closeModal();
       }
@@ -71,11 +108,26 @@ export default defineComponent({
 
       return false;
     },
+    openModal() {
+      const modal = document.querySelector(".modal");
+      const editBtn = document.querySelector("#edit-button");
+      const addBtn = document.querySelector("#add-button");
+
+      editBtn.style.display = "inline-block";
+      addBtn.style.display = "none";
+
+      modal?.classList.add("active");
+    },
     closeModal() {
       const modal = document.querySelector(".modal");
+      const editBtn = document.querySelector("#edit-button");
+      const addBtn = document.querySelector("#add-button");
 
       if (modal?.classList.contains("active")) {
         modal.classList.remove("active");
+        editBtn.style.display = "none";
+        addBtn.style.display = "inline-block";
+        this.form.id = "";
         this.form.title = "";
         this.form.message = "";
       }

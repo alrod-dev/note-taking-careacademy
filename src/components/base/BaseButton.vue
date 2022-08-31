@@ -16,6 +16,10 @@ button {
   text-transform: uppercase;
   cursor: pointer;
 
+  &#edit-button {
+    display: none;
+  }
+
   //Colors
   //Variables come from _variables.scss file
   @each $button, $color in $colors {
