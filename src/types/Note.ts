@@ -1,7 +1,5 @@
-interface Note {
+export default interface Note {
   title: string;
-  description: string;
+  message: string;
   id: string | number;
 }
-
-export default Note;

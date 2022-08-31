@@ -5,7 +5,7 @@
         <li v-for="Note in Notes" :key="Note.id">
           <img src="@/assets/images/rupee.svg" alt="Rupee" />
           <h3>{{ Note.title }}</h3>
-          <p>{{ Note.description }}</p>
+          <p>{{ Note.message }}</p>
           <Button class="pulse yellow">Edit</Button>
           <Button class="close red">Delete</Button>
         </li>

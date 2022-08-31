@@ -5,10 +5,10 @@
       <input type="text" placeholder="Title" v-model="form.title" />
     </div>
     <div class="form-input">
-      <label>Description</label>
+      <label>Message</label>
       <textarea
-        placeholder="Add Note Description"
-        v-model="form.description"
+        placeholder="Add Note Message"
+        v-model="form.message"
       ></textarea>
     </div>
     <div class="form-input errors" v-if="errors.length">
@@ -25,6 +25,9 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import store from "@/store/index";
+import { MutationType } from "@/store/modules/notes/mutations";
+import Note from "@/types/Note";
 import Button from "@/components/base/BaseButton.vue";
 
 export default defineComponent({
@@ -33,7 +36,7 @@ export default defineComponent({
       errors: [],
       form: {
         title: "",
-        description: "",
+        message: "",
       },
     };
   },
@@ -41,7 +44,15 @@ export default defineComponent({
   methods: {
     submitForm() {
       if (this.checkForm()) {
-        return true;
+        const note: Note = {
+          id: Date.now(),
+          title: this.form.title,
+          message: this.form.message,
+        };
+
+        store.commit(MutationType.CreateNote, note);
+
+        this.closeModal();
       }
     },
     checkForm() {
@@ -50,8 +61,8 @@ export default defineComponent({
       if (!this.form.title) {
         this.errors.push("Title required.");
       }
-      if (!this.form.description) {
-        this.errors.push("Description required.");
+      if (!this.form.message) {
+        this.errors.push("Message required.");
       }
 
       if (!this.errors.length) {
@@ -59,6 +70,15 @@ export default defineComponent({
       }
 
       return false;
+    },
+    closeModal() {
+      const modal = document.querySelector(".modal");
+
+      if (modal?.classList.contains("active")) {
+        modal.classList.remove("active");
+        this.form.title = "";
+        this.form.message = "";
+      }
     },
   },
 });
